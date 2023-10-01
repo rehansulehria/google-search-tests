@@ -1,6 +1,7 @@
 package com.google.pages;
 
 import com.google.utils.LoadProps;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -27,6 +28,7 @@ public class BasePage {
     public WebDriver instantiateBrowserDriver(String browserType) throws IOException {
         switch (browserType) {
             case "chrome":
+                WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver(setChromeOptions());
                 driver.manage().window().maximize();
                 driver.manage().timeouts().implicitlyWait(Duration.of(5, SECONDS)); // Set implicit wait
@@ -55,6 +57,7 @@ public class BasePage {
         options.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
         options.addArguments("--disable-incognito"); // Disable incognito mode
         options.addArguments("--window-size=1920,1080"); // Set window size
+
         return options;
     }
 
