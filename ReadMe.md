@@ -30,8 +30,6 @@ from the following link for your OS type.
 https://googlechromelabs.github.io/chrome-for-testing/#stable
 ```
 
-
-Download the appropriate browser driver binary for your browser (e.g., ChromeDriver).
 Place the WebDriver executable in a directory that is included in your system's PATH or update the WebDriver path in the BasePage class
 using system property
 
