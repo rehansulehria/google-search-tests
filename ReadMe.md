@@ -23,8 +23,21 @@ cd `google-search-tests`
 
 ## Set up the Driver Binary:
 
+Download the chromedriver matching your chrome browser version. e.g for Chrome version 117, download the chromedriver 
+from the following link for your OS type.
+
+```
+https://googlechromelabs.github.io/chrome-for-testing/#stable
+```
+
+
 Download the appropriate browser driver binary for your browser (e.g., ChromeDriver).
-Place the WebDriver executable in a directory that is included in your system's PATH or update the WebDriver path in the BasePage class.
+Place the WebDriver executable in a directory that is included in your system's PATH or update the WebDriver path in the BasePage class
+using system property
+
+```
+System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+```
 
 e.g if running on **_MACOS_**: the binary file is located in the following system path: 
 ```/usr/local/bin```.
