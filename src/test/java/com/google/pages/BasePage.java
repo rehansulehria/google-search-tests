@@ -28,7 +28,6 @@ public class BasePage {
     public WebDriver instantiateBrowserDriver(String browserType) throws IOException {
         switch (browserType) {
             case "chrome":
-                WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver(setChromeOptions());
                 driver.manage().window().maximize();
                 driver.manage().timeouts().implicitlyWait(Duration.of(5, SECONDS)); // Set implicit wait
