@@ -27,7 +27,8 @@ jobs:
       - name: Install Chrome WebDriver
         run: |
           curl -o /tmp/chromedriver.zip "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/117.0.5938.92/linux64/chrome-linux64.zip"
-          sudo unzip -o /tmp/chromedriver.zip -d /usr/local/bin/
+          unzip -o /tmp/chromedriver.zip -d /tmp/
+          sudo mv /tmp/chromedriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Build and test with Maven
