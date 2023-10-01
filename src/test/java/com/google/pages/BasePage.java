@@ -17,6 +17,7 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 public class BasePage {
     public static WebDriver driver;
     private static final LoadProps props = new LoadProps();
+    boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless", "true"));
 
     @BeforeTest
     public void setUp() throws IOException {
@@ -46,6 +47,9 @@ public class BasePage {
     private ChromeOptions setChromeOptions() throws IOException {
         System.setProperty("webdriver.http.factory", "jdk-http-client"); // Set HTTP client factory
         ChromeOptions options = new ChromeOptions();
+        if(isHeadless){
+            options.addArguments("--headless"); // Run in headless mode on CI
+        }
         options.addArguments("--disable-extensions"); // disabling extensions
         options.addArguments("--no-sandbox");  // Bypass OS security model
         options.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
