@@ -21,16 +21,8 @@ jobs:
 
       - name: Install Chrome
         run: |
-          wget https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_14.0.835.163-r98762_amd64.deb
-          sudo dpkg -i google-chrome-stable_14.0.835.163-r98762_amd64.deb
-          sudo apt-get install -f
-
-      - name: Install Chrome WebDriver
-        run: |
-          CHROME_DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
-          curl -o /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip"
-          sudo unzip -o /tmp/chromedriver.zip -d /usr/local/bin/
-          sudo chmod +x /usr/local/bin/chromedriver
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
 
       - name: Build and test with Maven
         run: |
