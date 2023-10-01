@@ -8,6 +8,7 @@ Before running the tests, make sure you have the following installed on your sys
 
 * Java
 * Maven
+* IntelliJ IDEA
 * Google Chrome
 * ChromeDriver Binary (for Chrome WebDriver)
 
@@ -15,10 +16,10 @@ Before running the tests, make sure you have the following installed on your sys
 Clone this repository to your local machine:
 
 ```
-git clone https://github.com/yourusername/java-maven-testng-google-search.git
+git clone https://github.com/rehansulehria/google-search-tests.git
 ```
 
-cd google-search-test
+cd `google-search-tests`
 
 ## Set up the Driver Binary:
 
@@ -31,7 +32,7 @@ Alternatively you can place the binary on the project root folder and update the
 
 ## How to Run the tests:
 
-To run the tests on MAC-OS, you can execute the the ``start.sh`` script file from the project root folder.
+To run the tests on `MAC-OS`, you can execute the the ``start.sh`` script file from the project root folder.
 Make sure to have the execution permission on the file.
 ```
 chmod +x ./start.sh
@@ -41,7 +42,7 @@ Then run the script file with command
 ./start.sh
 ```
 
-If you are on Windows, you can run the tests using the following command from the project root folder:
+If you are on `Windows`, you can run the tests using the following command from the project root folder:
 ```
 ./start.bat
 ```
@@ -55,10 +56,10 @@ The project is configured to run the tests on Github Actions. The workflow is de
 
 ## Test Reports
 
-The test reports are generated in the ``target/surefire-reports`` folder.
+The test reports are generated in the ``/allure-report/index.html`` file.
 
 ```
-allure serve allure-results
+allure generate allure-results --clean -o allure-report
 ```
 
 
