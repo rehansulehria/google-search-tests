@@ -48,6 +48,7 @@ public class BasePage {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-extensions"); // disabling extensions
         options.addArguments("--no-sandbox");  // Bypass OS security model
+        options.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
         options.addArguments("--disable-incognito"); // Disable incognito mode
         options.addArguments("--window-size=1920,1080"); // Set window size
         return options;
