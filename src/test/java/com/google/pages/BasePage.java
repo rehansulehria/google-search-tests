@@ -3,9 +3,9 @@ package com.google.pages;
 import com.google.utils.LoadProps;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -21,13 +21,24 @@ public class BasePage {
 
     @BeforeTest
     public void setUp() throws IOException {
-        instantiateBrowserDriver("chrome");
+        String browser = props.getProperty("browserName");
+        if (browser.equals("chrome")) {
+            driver = WebDriverManager.chromedriver().capabilities(setChromeOptions()).create();
+            navigateToBaseurl("chrome");
+        } else if (browser.equals("firefox")) {
+            driver = WebDriverManager.firefoxdriver().capabilities(setFireFoxOptions()).create();
+            navigateToBaseurl("firefox");
+        } else if (browser.equals("ie")) {
+            driver = WebDriverManager.iedriver().create();
+            navigateToBaseurl("ie");
+        } else {
+            System.out.println(browser + " is not supported");
+        }
     }
 
-    public WebDriver instantiateBrowserDriver(String browserType) throws IOException {
+    public WebDriver navigateToBaseurl(String browserType) throws IOException {
         switch (browserType) {
             case "chrome":
-                driver = new ChromeDriver(setChromeOptions());
                 driver.manage().window().maximize();
                 driver.manage().timeouts().implicitlyWait(Duration.of(5, SECONDS)); // Set implicit wait
                 driver.get(props.getProperty("baseUrl")); // Navigate to the Google Home Page URl
@@ -46,14 +57,22 @@ public class BasePage {
 
     private ChromeOptions setChromeOptions() throws IOException {
         System.setProperty("webdriver.http.factory", "jdk-http-client"); // Set HTTP client factory
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-extensions"); // disabling extensions
-        options.addArguments("--no-sandbox");  // Bypass OS security model
-        options.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
-        options.addArguments("--disable-incognito"); // Disable incognito mode
-        options.addArguments("--window-size=1920,1080"); // Set window size
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--disable-extensions"); // disabling extensions
+        chromeOptions.addArguments("--no-sandbox");  // Bypass OS security model
+        chromeOptions.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
+        chromeOptions.addArguments("--disable-incognito"); // Disable incognito mode
+        chromeOptions.addArguments("--window-size=1920,1080"); // Set window size
+        return chromeOptions;
+    }
 
-        return options;
+    private FirefoxOptions setFireFoxOptions() {
+        FirefoxOptions firefoxOptions = new FirefoxOptions();
+        firefoxOptions.addArguments("--disable-extensions"); // disabling extensions
+        firefoxOptions.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
+        firefoxOptions.addArguments("--disable-incognito"); // Disable incognito mode
+        firefoxOptions.addArguments("--window-size=1920,1080"); // Set window size
+        return firefoxOptions;
     }
 
     @AfterTest
